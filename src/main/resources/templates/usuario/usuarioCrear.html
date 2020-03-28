@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'index')}">
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{fragments/layout :: layout (~{::body},'index')}">
 <body>
-<h2  class="text-center"></h2>
-<h3 class="text-center "></h3>
+	<h2 class="text-center"></h2>
+	<h3 class="text-center "></h3>
 
 	<section class="">
 		<div class="card">
@@ -10,11 +11,89 @@
 				<strong th:text="${usuarioCrear}" class="text-center"></strong>
 			</div>
 			<div class="card-body">
+				<form method="post" th:action="@{/crear}" th:object="${usuario}">
 				
-			</div>
+<div class="form-row">
 
+	<!-- Campo nombre-------------------------------------------------------------------------------- -->
+    <div class="form-group col-md-6">
+      <label for="nombre" class="text-dark">Nombre*</label>
+      <input type="text" class="form-control" id="nombre" th:field="*{nombre}"aria-describedby="nombre" required="required">
+      
+      <!-- Errores en nombre -->
+      
+      <div th:if="${#fields.hasErrors('nombre')}">
+			<small id="apellido" th:errors="*{nombre}" class="text-dark"></small>
+	 	</div>
+    </div>
+    <!------------------------------------------------------------------------------------------------ -->
+    
+    <!-- Campo peso-------------------------------------------------------------------------------- -->
+    <div class="form-group col-md-3">
+      <label for="peso" class="text-dark">Peso (kg)*</label>
+      <input type="number" class="form-control" id="peso" th:field="*{peso}"aria-describedby="peso" min="0" max="350" required="required">
+      
+      <!-- Errores en peso -->
+      
+      <div th:if="${#fields.hasErrors('peso')}">
+			<small id="pesoError" th:errors="*{peso}" class="text-dark"></small>
+	 	</div>
+    </div>
+    <!------------------------------------------------------------------------------------------------ -->
+   
+    <!-- Campo talla-------------------------------------------------------------------------------- -->
+    <div class="form-group col-md-3">
+      <label for="talla" class="text-dark">Talla (cm)*</label>
+      <input type="number" class="form-control" id="talla" th:field="*{talla}"aria-describedby="talla" min="1" max="230" required="required">
+      
+      <!-- Errores en talla -->
+      
+      <div th:if="${#fields.hasErrors('talla')}">
+			<small id="talla" th:errors="*{talla}" class="text-dark"></small>
+	 	</div>
+    </div>
+    <!------------------------------------------------------------------------------------------------ -->
+ </div> <!-- Fin row -->
+	<h5 class="text-center text-dark">Fecha de nacimiento</h5>
+<div class="form-row">
+
+  <div class="form-group col-sm-4">
+    <label for="dia" class="text-dark">Día: </label>
+    <input type="number" max="31" min="1" maxlength="2" class="form-control border" id="dia" th:field="*{diaNacimiento}" aria-describedby="dia">
+     <div th:if="${#fields.hasErrors('diaNacimiento')}">
+    	<small id="diaError" class="form-text text-muted" th:errors="*{diaNacimiento}"></small>
+    </div>
+  </div>
+  <div class="form-group  col-sm-4">
+    <label for="mes" class="text-dark">Mes: </label>
+    <input type="number" max="12" min="1" maxlength="2" class="form-control" id="mes" th:field="*{mesNacimiento}" aria-describedby="mes">
+     <div th:if="${#fields.hasErrors('mesNacimiento')}">
+    <small id="mesError" class="form-text text-muted" th:errors="*{mesNacimiento}"></small>
+    </div>
+  </div>
+  <div class="form-group  col-sm-4">
+    <label for="anno" class="text-dark">Año: </label>
+    <input type="number" max="2100" min="1900" maxlength="4" class="form-control" id="anno" th:field="*{annoNacimiento}" aria-describedby="anno">
+     <div th:if="${#fields.hasErrors('annoNacimiento')}">
+    <small id="annoError" class="form-text text-muted" th:errors="*{annoNacimiento}"></small>
+    </div>
+</div>
+
+</div> <!-- Fin del row -->
+
+	<div class="form-group row">
+		<label for="id" class="text-dark col-sm-1">Id: </label> 
+		<input type="number" class="form-control col-sm-1" id="id" th:field="*{id}" aria-describedby="id" readonly/>
+		<div th:if="${#fields.hasErrors('id')}">
+			<small id="idError" class="form-text text-muted" th:errors="*{id}"></small>
 		</div>
+	</div>
+
+		<button type="submit" class="btn btn-primary">Crear</button>
+	</form>
+					
+	</div><!-- card body -->
+</div><!-- card -->
 	</section>
-	
 </body>
 </html>

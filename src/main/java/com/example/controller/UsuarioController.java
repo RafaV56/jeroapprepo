@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import com.example.models.entitys.Usuario;
 import com.example.service.usuario.IUsuarioService;
 
 
@@ -38,6 +39,9 @@ public class UsuarioController {
 	  */
 	 @GetMapping("/crearUsuario")
 	 public String crearUsuario(Model model) {
+		 Usuario usuario=new Usuario();
+		 
+		 model.addAttribute("usuario", usuario);
 		 return "usuario/usuarioCrear";
 	 }
 	

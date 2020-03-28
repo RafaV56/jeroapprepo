@@ -10,12 +10,16 @@
 <th>Nombre</th>
 <th>Talla</th>
 <th>Peso</th>
+<th>Nacimiento</th>
+<th>Edad</th>
 </tr>
 <tr th:each="usuario : ${usuarios}">
 <td th:text="${usuario.id}"></td>
 <td th:text="${usuario.nombre}"></td>
 <td th:text="${usuario.peso}"></td>
 <td th:text="${usuario.talla}"></td>
+<td th:text="${usuario.verFechaNacimiento()}"></td>
+<td th:text="${usuario.edad()}"></td>
 </tr>
 </table>
 

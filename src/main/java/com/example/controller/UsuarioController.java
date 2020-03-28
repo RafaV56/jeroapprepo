@@ -31,6 +31,15 @@ public class UsuarioController {
 		model.addAttribute("usuarios", usuarioService.buscarTodos());
 		return "usuario/usuarioIndex";
 	}
+	 /**
+	  * Controlador para la el crear Usuario
+	  * @param model
+	  * @return
+	  */
+	 @GetMapping("/crearUsuario")
+	 public String crearUsuario(Model model) {
+		 return "usuario/usuarioCrear";
+	 }
 	
 	 /**
 	  * Controlador para editar el usuario
@@ -48,6 +57,11 @@ public class UsuarioController {
 	 */
 	@Value("${titulo.usuarioIndex}")
 	private String tituloUsuario;	
+	/**
+	 * Tomamos el titulo del titulos.properties, para la vista crearUsaurioIndex
+	 */
+	@Value("${titulo.usuarioCrear}")
+	private String tituloCrearUsuario;	
 	
 	/**
 	 * Titulo de la vista usuario index 
@@ -58,9 +72,18 @@ public class UsuarioController {
 		 //Se toma el título desde titulos.properties
 		return tituloUsuario;
 	}
+	/**
+	 * Titulo de la vista usuario Crear usuario 
+	 * @return
+	 */
+	@ModelAttribute("usuarioCrear") // Atributo que siempre llevara el model
+	public String crearUsuarioIndex() {
+		//Se toma el título desde titulos.properties
+		return tituloCrearUsuario;
+	}
 	
 	/**
-	 * Tomamos el titulo del titulos.properties, para la vista usaurioEditar
+	 * Tomamos el titulo del titulos.properties, para la vista usaurioEdita
 	 */
 	@Value("${titulo.usuarioEditar}")
 	private String tituloUsuarioEditar;

@@ -59,19 +59,19 @@ public class Fecha implements Comparable<Fecha>{
 		this.fecha = crearFecha(dia, mes, anno, hora, minuto);
 	}
 	
-	/**
-	 * Contrustor para usar si se recibe de un formulario web una input tipo date, asi se asigna despues a la fecha
-	 * @param fechaDeFormularioWeb
-	 */
-	public Fecha(String fechaDeFormularioWeb) {
-		if(fechaDeFormularioWeb.isBlank() ||
-		   fechaDeFormularioWeb.isEmpty() ||
-		   fechaDeFormularioWeb==null) {
-			throw new RuntimeException("La fecha es nula, o vacía o tiene espacios en blanco");
-		}
-		String[] nueva=fechaDeFormularioWeb.split("-");
-		this.fecha=crearFecha(Integer.parseInt(nueva[2]), Integer.parseInt(nueva[1]),Integer.parseInt(nueva[0]), 0, 0);
-	}
+//	/**
+//	 * Contrustor para usar si se recibe de un formulario web una input tipo date, asi se asigna despues a la fecha
+//	 * @param fechaDeFormularioWeb
+//	 */
+//	public Fecha(String fechaDeFormularioWeb) {
+//		if(fechaDeFormularioWeb.isBlank() ||
+//		   fechaDeFormularioWeb.isEmpty() ||
+//		   fechaDeFormularioWeb==null) {
+//			throw new RuntimeException("La fecha es nula, o vacía o tiene espacios en blanco");
+//		}
+//		String[] nueva=fechaDeFormularioWeb.split("-");
+//		this.fecha=crearFecha(Integer.parseInt(nueva[2]), Integer.parseInt(nueva[1]),Integer.parseInt(nueva[0]), 0, 0);
+//	}
 	
 	/**
 	 * Calcula los años, de mi  está fecha hasta la actual. si está fecha es superior dará un número negativo. no tiene  en cuenta las horas ni lo  minutos

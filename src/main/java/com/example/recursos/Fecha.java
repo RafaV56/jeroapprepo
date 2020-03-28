@@ -6,21 +6,22 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
-import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.time.format.TextStyle;
 import java.util.Locale;
 
-import javax.management.RuntimeErrorException;
+import org.springframework.stereotype.Component;
 
 /**
  * Clase desarrollada por ejemplosdecodigo.ddns.net el 13/1/2020, para manejar fechas en Espa�ol
  * @author Ejemplos de c�digo (Rafael Antonio Velásquez Millán)
  *
  */
+@Component
 public class Fecha implements Comparable<Fecha>{
-	
+	public Fecha() {
+	}
 	/**
 	 * retorna la fecha del sistema
 	 * @return fecha nueva del sistema

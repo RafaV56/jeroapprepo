@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 import com.example.recursos.Fecha;
 
@@ -41,7 +42,7 @@ public class Usuario implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(nullable = false)
+	@Column(nullable = false,length = 50)
 	private String nombre;
 
 	private Double peso;

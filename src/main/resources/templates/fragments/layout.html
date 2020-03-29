@@ -33,6 +33,13 @@
     </ul>
   </div>
 </nav>
+	<!-- Mesajes de alertar por acciones como crear, borrar etc. -->
+<div class="w3-margin">
+<div class="alert alert-success text-center" th:if="${exito != null}" th:utext="${exito}"></div>
+<div class="alert alert-danger text-center" th:if="${peligro != null}" th:utext="${peligro}"></div>
+<div class="alert alert-warning text-center" th:if="${cuidado != null}" th:utext="${cuidado}"></div>
+<div class="alert alert-info text-center" th:if="${informacion != null}" th:utext="${informacion}"></div>
+</div>
     <div th:replace="${template}"/>
     <footer class="text-center alert alert-dark">
     <p>Creado por Rafael Vel&aacute;squez 22/3/2020 &copy; <a href="http://ejemplosdecodigo.ddns.net" target="_blank" class="text-info">ejemplosdecodigo.ddns.net</a></p>

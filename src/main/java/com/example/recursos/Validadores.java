@@ -1,5 +1,6 @@
 package com.example.recursos;
 
+import org.slf4j.Logger;
 
 /**
  * Clase con métodos para validar campos de los formularios de la aplicación
@@ -8,13 +9,25 @@ package com.example.recursos;
  */
 public class Validadores {
 	
-	public static String revisarSoloLetrasDelEspannol(String cadena) {
-		
-		char[] array=cadena.toCharArray();
-		
-		
-		
-		return null;
+	
+	/**
+	 * Revisa que solo tenga letras, nada de números ni caracteres especiales, acepta la ñ los acentos á é í ó ú
+	 * @param cadena
+	 * @return true si tiene números o cualquier caracter especia como [+,´,¡]
+	 */
+	public static boolean revisarSoloLetrasDelEspannol(String cadena) {
+
+		boolean bandera = false;
+		char[] array = cadena.toCharArray();
+
+		for (char c : array) {
+			//Si no es letra rompe el bucle y devuelve falso
+			if (!Character.isLetter(c)) {
+				bandera = true;
+				break;
+			}
+		}
+		return bandera;
 	}
 	
 	/**

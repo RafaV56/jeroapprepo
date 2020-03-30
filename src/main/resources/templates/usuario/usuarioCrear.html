@@ -22,8 +22,8 @@
       
       <!-- Errores en nombre -->
       
-      <div th:if="${#fields.hasErrors('nombre')}">
-			<small id="nombreError" th:errors="*{nombre}" class="text-danger"></small>
+      <div th:if="${#fields.hasErrors('nombre')}" class="mt-1">
+			<small id="nombreError" th:errors="*{nombre}" class="badge badge-warning"></small>
 	 	</div>
     </div>
     <!------------------------------------------------------------------------------------------------ -->
@@ -48,8 +48,8 @@
       
       <!-- Errores en talla -->
       
-      <div th:if="${#fields.hasErrors('talla')}">
-			<small id="talla" th:errors="*{talla}" class="text-dark"></small>
+      <div th:if="${#fields.hasErrors('talla')}" class="mt-0">
+			<small id="talla" th:errors="*{talla}"  class="badge badge-warning"></small>
 	 	</div>
     </div>
     <!------------------------------------------------------------------------------------------------ -->

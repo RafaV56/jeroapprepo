@@ -23,6 +23,10 @@ public class UsuarioValidador implements Validator {
 			errors.rejectValue("nombre", "null.usuario.nombre");
 			usuario.setNombre("");
 		}
+		if (Validadores.revisarSoloLetrasDelEspannol(usuario.getNombre())) {
+			//Informamos que no se puede tener números ni caracrteres especiales
+			errors.rejectValue("nombre", "letras.usuario.nombre");
+		}
 		//Quitamos los espacios en blanco
 		usuario.setNombre(Validadores.revisarEspaciosEnBlancoAlPrincipioYAlfinal(usuario.getNombre()));
 		//Luego revisamos que tenga el tamaño de 3 - 50 caracteres

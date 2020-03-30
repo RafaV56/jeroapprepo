@@ -74,13 +74,21 @@ public class UsuarioController {
 	 
 	 @PostMapping("/crearUsuario")
 	 public String crearUsaurioPost(@Valid Usuario usuario, BindingResult status, RedirectAttributes flash, Model model,SessionStatus sesion) {
+		//Validamos primero la fecha de nacimiento
+		 try {
+			usuario.verFechaNacimiento();
+		} catch (RuntimeException e) {
+			model.addAttribute("cuidado", e.getMessage());
+			return "usuario/usuarioCrear";
+		}
 		 
+		 //Validamos el restos de campos
 		 usuarioValidador.validate(usuario,status);
 		 if (status.hasErrors()) {
 			 	model.addAttribute("cuidado", "Formulario con errores");
 				return "usuario/usuarioCrear";
 			}
-		 //Guardamos el usuario den la base de datos
+		 //si todo va bien Guardamos el usuario den la base de datos
 		 usuarioService.guardar(usuario);
 		 //log en la aplicacón
 		 log.info("Se creo un usuario correctamente id: ".concat(usuario.getId().toString()));

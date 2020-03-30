@@ -8,7 +8,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import com.example.recursos.Fecha;
 
@@ -26,14 +29,33 @@ public class Usuario implements Serializable {
 		return serialVersionUID;
 	}
 	
+	@NotNull(message = "El año no puede ser nulo")
+	@Max(value = 2100)
+	@Min(value = 1900)
 	@Column(name = "anno")
 	private Integer annoNacimiento;
+	
+	@NotNull(message = "El día no puede ser nulo")
+	@Max(value = 31)
+	@Min(value = 1)
 	@Column(name = "dia")
 	private Integer diaNacimiento;
+	
+	@NotNull(message = "La hora no puede ser nula")
+	@Max(value = 23)
+	@Min(value = 0)
 	@Column(name = "hora")
 	private Integer horaNacimiento;
+	
+	@NotNull(message = "El mes no puede ser nulo")
+	@Max(value = 12)
+	@Min(value = 1)
 	@Column(name = "mes")
 	private Integer mesNacimiento;
+	
+	@NotNull(message = "El minuto no puede ser nulo")
+	@Max(value = 59)
+	@Min(value = 0)
 	@Column(name = "minuto")
 	private Integer minutoNacimiento;
 
@@ -45,8 +67,15 @@ public class Usuario implements Serializable {
 	@Column(nullable = false,length = 50)
 	private String nombre;
 
+
+	@NotNull(message = "El peso no puede ser nulo")
+	@Min(value = 1)
+	@Max(value = 350)
 	private Double peso;
 
+	@NotNull(message = "La talla no puede ser nula")
+	@Min(value = 1)
+	@Max(value = 235)
 	private Double talla;
 
 	public Usuario() {
@@ -120,10 +149,17 @@ public class Usuario implements Serializable {
 		this.talla = talla;
 	}
 	
+	/**
+	 * Devuelve la fecha de nacimiento usando internamente la clase fecha
+	 * @return
+	 */
 	public String verFechaNacimiento() {
 		return new Fecha(getDiaNacimiento(),getMesNacimiento(),getAnnoNacimiento(),getHoraNacimiento(),getMinutoNacimiento()).toString();
 	}
-	
+	/**
+	 * Retorna la edad del usaurio, calculando con la fecha actual
+	 * @return
+	 */
 	public Long edad() {
 		return new Fecha(getDiaNacimiento(),getMesNacimiento(),getAnnoNacimiento(),getHoraNacimiento(),getMinutoNacimiento()).calcularAnnos();
 	}

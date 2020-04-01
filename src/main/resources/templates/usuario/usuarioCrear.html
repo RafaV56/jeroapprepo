@@ -8,7 +8,7 @@
 	<section class="">
 		<div class="card">
 			<div class="card-header text-dark text-center">
-				<h3 th:text="${usuarioCrear}" class="text-center"></h3>
+				<h3 th:text="#{titulo.usuarioCrear}" class="text-center"></h3>
 			</div>
 			<div class="card-body">
 				<form method="post" th:action="@{/crearUsuario}" th:object="${usuario}">
@@ -17,7 +17,7 @@
 
 	<!-- Campo nombre-------------------------------------------------------------------------------- -->
     <div class="form-group col-md-6">
-      <label for="nombre" class="text-dark"><strong>Nombre*</strong></label>
+      <strong><label for="nombre" class="text-dark" th:text="#{text.usuario.nombre}+' *'">Nombre*</label></strong>
       <input type="text" class="form-control" id="nombre" th:field="*{nombre}"aria-describedby="nombre" maxlength="50" required="required">
       
       <!-- Errores en nombre -->
@@ -30,7 +30,7 @@
     
     <!-- Campo peso-------------------------------------------------------------------------------- -->
     <div class="form-group col-md-3">
-      <label for="peso" class="text-dark"><strong>Peso (kg)*</strong></label>
+      <strong><label for="peso" class="text-dark" th:text="#{text.usuario.peso}+ ' (kg)*'">Peso (kg)*</label></strong>
       <input type="number" class="form-control" id="peso" th:field="*{peso}"aria-describedby="peso" min="1" max="350" required="required">
       
       <!-- Errores en peso -->
@@ -43,7 +43,7 @@
    
     <!-- Campo talla-------------------------------------------------------------------------------- -->
     <div class="form-group col-md-3">
-      <label for="talla" class="text-dark"><strong>Talla (cm)*</strong></label>
+      <strong><label for="talla" class="text-dark" th:text="#{text.usuario.talla}+' (cm)*'">Talla (cm)*</label></strong>
       <input type="number" class="form-control" id="talla" th:field="*{talla}"aria-describedby="talla" min="1" max="230" required="required">
       
       <!-- Errores en talla -->
@@ -54,11 +54,11 @@
     </div>
     <!------------------------------------------------------------------------------------------------ -->
  </div> <!-- Fin row -->
-	<h5 class="text-center text-dark">Fecha de nacimiento</h5>
+	<h5 class="text-center text-dark" th:text="#{text.usuario.nacimiento}">Fecha de nacimiento</h5>
 <div class="form-row">
 
   <div class="form-group col-sm-2">
-    <label for="dia" class="text-dark"><strong>Día: </strong></label>
+    <strong><label for="dia" class="text-dark" th:text="#{dia}+':'">Día: </label></strong>
     <input type="number" max="31" min="1" class="form-control border" id="dia" th:field="*{diaNacimiento}" aria-describedby="dia" required="required">
      <div th:if="${#fields.hasErrors('diaNacimiento')}" class="mt-0">
     	<small id="diaError" class="badge badge-warning" th:errors="*{diaNacimiento}"></small>
@@ -66,20 +66,20 @@
   </div>
   
   <div class="form-group  col-sm-3">
-    <label for="mes" class="text-dark"><strong>Mes: </strong></label>
+    <strong><label for="mes" class="text-dark" th:text="#{mes}+':'">Mes: </label></strong>
     <select class="custom-select" th:field="*{mesNacimiento}" id="mes">
-    <option selected="selected" value="1">Enero</option>
-     <option  value="2">Febrero</option>
-     <option  value="3">Marzo</option>
-     <option  value="4">Abril</option>
-     <option  value="5">Mayo</option>
-     <option  value="6">Junio</option>
-     <option  value="7">Julio</option>
-     <option  value="8">Agosto</option>
-     <option  value="9">Septiembre</option>
-     <option  value="10">Octubre</option>
-     <option  value="11">Noviembre</option>
-     <option  value="12">Diciembre</option>
+    <option selected="selected" value="1" th:text="#{enero}">Enero</option>
+     <option  value="2" th:text="#{febrero}">Febrero</option>
+     <option  value="3" th:text="#{marzo}">Marzo</option>
+     <option  value="4" th:text="#{abril}">Abril</option>
+     <option  value="5" th:text="#{mayo}">Mayo</option>
+     <option  value="6" th:text="#{junio}">Junio</option>
+     <option  value="7" th:text="#{julio}">Julio</option>
+     <option  value="8" th:text="#{agosto}">Agosto</option>
+     <option  value="9" th:text="#{septiembre}">Septiembre</option>
+     <option  value="10" th:text="#{octubre}">Octubre</option>
+     <option  value="11" th:text="#{noviembre}">Noviembre</option>
+     <option  value="12" th:text="#{diciembre}">Diciembre</option>
   </select>
      <div th:if="${#fields.hasErrors('mesNacimiento')}" class="mt-0">
     <small id="mesError" class="badge badge-warning" th:errors="*{mesNacimiento}"></small>
@@ -88,21 +88,21 @@
   
   
   <div class="form-group  col-sm-3">
-    <label for="anno" class="text-dark"><strong>Año: </strong></label>
+    <strong><label for="anno" class="text-dark" th:text="#{anno}+':'">Año: </label></strong>
     <input type="number" max="2100" min="1900" class="form-control" id="anno" th:field="*{annoNacimiento}" aria-describedby="anno" required="required">
      <div th:if="${#fields.hasErrors('annoNacimiento')}" class="mt-0">
     <small id="annoError" class="badge badge-warning" th:errors="*{annoNacimiento}"></small>
     </div>
     </div>
       <div class="form-group  col-sm-2">
-    <label for="hora" class="text-dark"><strong>Hora: </strong></label>
+    <strong><label for="hora" class="text-dark" th:text="#{hora}+':'">Hora: </label></strong>
     <input type="number" max="23" min="0" maxlength="2" class="form-control" id="hora" th:field="*{horaNacimiento}" aria-describedby="hora">
      <div th:if="${#fields.hasErrors('horaNacimiento')}" class="mt-0">
     <small id="horaError" class="badge badge-warning" th:errors="*{horaNacimiento}"></small>
     </div>
     </div>
       <div class="form-group  col-sm-2">
-    <label for="minuto" class="text-dark"><strong>Minuto: </strong></label>
+    <strong><label for="minuto" class="text-dark" th:text="#{minuto}+':'">Minuto:</label></strong>
     <input type="number" max="59" min="0" maxlength="2" class="form-control" id="minuto" th:field="*{minutoNacimiento}" aria-describedby="minuto">
      <div th:if="${#fields.hasErrors('minutoNacimiento')}" class="mt-0">
     <small id="minutoError" class="badge badge-warning" th:errors="*{minutoNacimiento}"></small>
@@ -119,7 +119,7 @@
 		</div>
 	</div>
 
-		<button type="submit" class="btn btn-primary">Crear</button>
+		<button type="submit" class="btn btn-primary" th:text="#{crear}">Crear</button>
 	</form>
 					
 	</div><!-- card body -->

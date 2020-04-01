@@ -1,5 +1,7 @@
 package com.example.models.validadores;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -16,6 +18,12 @@ public class UsuarioValidador implements Validator {
 		return Usuario.class.isAssignableFrom(clazz);
 	}
 
+	 /**
+	  * Poder obtener los mensajes de idioma
+	  */
+	 @Autowired
+	 private MessageSource mensajesIdioma;
+	 
 	@Override
 	public void validate(Object target, Errors errors) {
 		Usuario usuario = (Usuario) target;

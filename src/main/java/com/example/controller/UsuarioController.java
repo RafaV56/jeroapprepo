@@ -1,10 +1,13 @@
 package com.example.controller;
 
+import java.util.Locale;
+
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -71,9 +74,24 @@ public class UsuarioController {
 	 @Autowired
 	 UsuarioValidador usuarioValidador;
 	 
+	 /**
+	  * Poder obtener los mensajes de idioma
+	  */
+	 @Autowired
+	 private MessageSource mensajesIdioma;
 	 
+	 /**
+	  * Crea un usaurio válidado
+	  * @param usuario
+	  * @param status errores del formulario
+	  * @param flash enviar comentarios a las vistas
+	  * @param model datos
+	  * @param sesion session del usuario
+	  * @param locale para el idioma y poder cambiar los textos
+	  * @return
+	  */
 	 @PostMapping("/crearUsuario")
-	 public String crearUsaurioPost(@Valid Usuario usuario, BindingResult status, RedirectAttributes flash, Model model,SessionStatus sesion) {
+	 public String crearUsaurioPost(@Valid Usuario usuario, BindingResult status, RedirectAttributes flash, Model model,SessionStatus sesion,Locale locale) {
 		//Validamos primero la fecha de nacimiento
 		 try {
 			usuario.verFechaNacimiento();
@@ -85,7 +103,7 @@ public class UsuarioController {
 		 //Validamos el restos de campos
 		 usuarioValidador.validate(usuario,status);
 		 if (status.hasErrors()) {
-			 	model.addAttribute("cuidado", "Formulario con errores");
+			 	model.addAttribute("cuidado", mensajesIdioma.getMessage("error.fomulario", null, locale));
 				return "usuario/usuarioCrear";
 			}
 		 //si todo va bien Guardamos el usuario den la base de datos
@@ -93,7 +111,7 @@ public class UsuarioController {
 		 //log en la aplicacón
 		 log.info("Se creo un usuario correctamente id: ".concat(usuario.getId().toString()));
 		 //enviamos el mensaje a la vista, que el usuario se guardo
-		 flash.addFlashAttribute("exito", "Usuario: ' <strong>".concat(usuario.getNombre()).concat("</strong> ' creado Correctamente"));
+		 flash.addFlashAttribute("exito",mensajesIdioma.getMessage("usuario.creado", null, locale)+ "<strong> ' ".concat(usuario.getNombre()).concat(" '</strong>"));
 		 sesion.setComplete();//terminamos la sesion
 		 return "redirect:usuario";
 	 }
@@ -111,51 +129,6 @@ public class UsuarioController {
 	}
 	
 	
-	/**
-	 * Tomamos el titulo del titulos.properties, para la vista usaurioIndex
-	 */
-	@Value("${titulo.usuarioIndex}")
-	private String tituloUsuario;	
-	/**
-	 * Tomamos el titulo del titulos.properties, para la vista crearUsaurioIndex
-	 */
-	@Value("${titulo.usuarioCrear}")
-	private String tituloCrearUsuario;	
-	
-	/**
-	 * Titulo de la vista usuario index 
-	 * @return
-	 */
-	@ModelAttribute("usuarioIndex") // Atributo que siempre llevara el model
-	public String tituloUsuarioIndex() {
-		 //Se toma el título desde titulos.properties
-		return tituloUsuario;
-	}
-	/**
-	 * Titulo de la vista usuario Crear usuario 
-	 * @return
-	 */
-	@ModelAttribute("usuarioCrear") // Atributo que siempre llevara el model
-	public String crearUsuarioIndex() {
-		//Se toma el título desde titulos.properties
-		return tituloCrearUsuario;
-	}
-	
-	/**
-	 * Tomamos el titulo del titulos.properties, para la vista usaurioEdita
-	 */
-	@Value("${titulo.usuarioEditar}")
-	private String tituloUsuarioEditar;
-	
-	/**
-	 * Titulo de la vista usuario index 
-	 * @return
-	 */
-	@ModelAttribute("usuarioEditar") 
-	public String tituloUsuarioEditar() {
-		//Se toma el título desde titulos.properties
-		return tituloUsuarioEditar;
-	}
 	
 
 }

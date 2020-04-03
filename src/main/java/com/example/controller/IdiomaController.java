@@ -11,7 +11,6 @@ public class IdiomaController {
 	@GetMapping("/idioma")
 	public String idioma(HttpServletRequest request){
 		String ultimaURL=request.getHeader("referer");
-		System.err.println(ultimaURL);
 		return "redirect:".concat(ultimaURL);
 		
 	}

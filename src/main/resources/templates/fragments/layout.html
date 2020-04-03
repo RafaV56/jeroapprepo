@@ -1,5 +1,5 @@
 <!doctype html>
-<html th:fragment="layout (template, menu)">
+<html th:fragment="layout (template, menu)" xlmns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Jero App web</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -30,9 +30,18 @@
       <li class="nav-item">
         <a href="https://jeroapp.herokuapp.com/" target="_blank" class="nav-item nav-link"><span class="glyphicon glyphicon-book"></span>Heroku</a>
       </li>
+   
     </ul>
     <div class="collapse navbar-collapse justify-content-end" id="navbarIdioma">
     <ul class="navbar-nav">
+     <li class="nav-item" sec:authorize="!isAuthenticated()">
+        <a th:href="@{/login}"  class="nav-item nav-link text-primary" th:text="#{login}">Entrar</a>  
+      </li>
+       <li class="nav-item" sec:authorize="isAuthenticated()">
+       <form th:action="@{/logout}" method="post">
+        <input type="submit" th:value="#{logout}" class="text-danger btn btn-dark" />
+       </form>
+      </li>
     <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" href="#" id="navbarIdiomaDrop" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="#{titulo.idioma}">
           Idioma
@@ -56,7 +65,16 @@
 </div>
     <div th:replace="${template}"/>
     <footer class="text-center alert alert-dark">
-    <p><span th:text="#{pie.creado}">Creado por Rafael Vel&aacute;squez</span> 22/3/2020 &copy; <a href="http://ejemplosdecodigo.ddns.net" target="_blank" class="text-info">ejemplosdecodigo.ddns.net</a></p>
+    <!-- Está el usaurio autorizado, si es admin mostrar admin, si no, el nombre del usuario -->
+    <p>Autorizado: <span sec:authorize="isAuthenticated()">
+    <span sec:authorize="hasRole('ADMIN')">
+    Administrador
+    </span>
+    <span sec:authorize="!hasRole('ADMIN')">
+    <span sec:authentication="name"></span>
+    </span>
+    <!-- Si no está autorizado motrar no -->
+    </span><span sec:authorize="!isAuthenticated()"> No</span> <span th:text="#{pie.creado}">Creado por Rafael Vel&aacute;squez</span> 22/3/2020 &copy; <a href="http://ejemplosdecodigo.ddns.net" target="_blank" class="text-info">ejemplosdecodigo.ddns.net</a></p>
     </footer>
 
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

@@ -7,7 +7,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import com.example.models.entitys.Usuario;
-import com.example.recursos.Fecha;
+
 import com.example.recursos.Validadores;
 
 @Component
@@ -17,12 +17,6 @@ public class UsuarioValidador implements Validator {
 	public boolean supports(Class<?> clazz) {
 		return Usuario.class.isAssignableFrom(clazz);
 	}
-
-	 /**
-	  * Poder obtener los mensajes de idioma
-	  */
-	 @Autowired
-	 private MessageSource mensajesIdioma;
 	 
 	@Override
 	public void validate(Object target, Errors errors) {

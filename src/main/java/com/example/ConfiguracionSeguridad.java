@@ -21,11 +21,11 @@ public class ConfiguracionSeguridad extends WebSecurityConfigurerAdapter{
 
 
 	/**
-	 * Sobreescribimos el método para dar autorización a lo que necesitemos
+	 * Sobreescribimos el método para dar autorización a lo que necesitemos, siempre se irá a la página de login si no tiene permiso
 	 */
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/","/ccs/**","/js/**","/img/**","/stylesheets/**").permitAll().//permitimos a todos usar estas carpetas
+		http.authorizeRequests().antMatchers("/","/ccs/**","/js/**","/img/**","/stylesheets/**","/idioma").permitAll().//permitimos a todos usar estas carpetas
 		antMatchers("/usuario").hasAnyRole("USER","ADMIN").//Autorizamos a usuarios y Admin a esta url
 		antMatchers("/crearUsuario").hasAnyRole("ADMIN").anyRequest().authenticated().//Solo puede verla el Admin
 		and().formLogin().loginPage("/login").permitAll().//Todos pueden acceder al login

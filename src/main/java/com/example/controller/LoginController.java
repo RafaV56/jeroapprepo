@@ -37,7 +37,8 @@ public class LoginController {
 			model.addAttribute("cuidado",  mensajesIdioma.getMessage("login.error", null, locale));
 		}
 		if(logout!=null) {
-			model.addAttribute("informacion",  mensajesIdioma.getMessage("logout.ok", null, locale));
+			flash.addFlashAttribute("informacion",  mensajesIdioma.getMessage("logout.ok", null, locale));
+			return "redirect:/";
 		}
 		return "login";
 	}

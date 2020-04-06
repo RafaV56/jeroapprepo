@@ -9,10 +9,10 @@
      <h2 class="card-title" th:text="#{titulo.paginaerror}">Error en la petición</h2>
     <div th:if="${status==403}">
      <h6 class="card-subtitle text-white" th:text="#{error.403}">No puedes acceder a este recurso</h6>
-    </div>
-    <div th:if="${status==404}">
-     <h6 class="card-subtitle text-white" th:text="#{error.404}">No se encontró este recurso</h6>
-    </div>
+   </div>
+   <div th:if="${status==404}">
+     <h6><span class="card-subtitle text-white" th:text="#{error.404}">No se encontró este recurso: </span> <span th:text="${path}" class="text-white"></span></h6>
+   </div>
     
    
     <p class="card-text"></p>

@@ -1,5 +1,7 @@
 package com.example;
 
+import java.awt.Menu;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +13,8 @@ import org.springframework.security.core.userdetails.User.UserBuilder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.example.recursos.MensajeInicioSesion;
+
 /**
  * Clase para configurar la seguridad de la aplicación
  * @author ejemplosdecodigo.ddns.net
@@ -19,6 +23,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class ConfiguracionSeguridad extends WebSecurityConfigurerAdapter{
 
+	@Autowired
+	private MensajeInicioSesion mensajeInicioSesion;
 
 	/**
 	 * Sobreescribimos el método para dar autorización a lo que necesitemos, siempre se irá a la página de login si no tiene permiso
@@ -26,9 +32,11 @@ public class ConfiguracionSeguridad extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests().antMatchers("/","/ccs/**","/js/**","/img/**","/stylesheets/**","/idioma").permitAll().//permitimos a todos usar estas carpetas
-		antMatchers("/usuario").hasAnyRole("USER","ADMIN").//Autorizamos a usuarios y Admin a esta url
-		antMatchers("/crearUsuario").hasAnyRole("ADMIN").anyRequest().authenticated().//Solo puede verla el Admin
-		and().formLogin().loginPage("/login").permitAll().//Todos pueden acceder al login
+		//antMatchers("/usuario").hasAnyRole("USER","ADMIN").//Autorizamos a usuarios y Admin a esta url
+		//antMatchers("/crearUsuario").hasAnyRole("ADMIN").anyRequest().authenticated().//Solo puede verla el Admin
+		and().formLogin().
+		successHandler(mensajeInicioSesion).
+		loginPage("/login").permitAll().//Todos pueden acceder al login
 		and().logout().permitAll();//Y todos puedes acceder al logout
 	}
 	/**

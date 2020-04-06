@@ -5,6 +5,8 @@ import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +30,9 @@ public class LoginController {
 	public String login(
 			@RequestParam(value = "error",required = false)String error,
 			@RequestParam(value = "logout",required = false)String logout,
-			Model model,Principal principal,RedirectAttributes flash,Locale locale) {
+			Model model,Principal principal,RedirectAttributes flash,Locale locale) { 
+		Authentication aut=SecurityContextHolder.getContext().getAuthentication();
+		
 		if (principal!=null) {
 			flash.addFlashAttribute("informacion",  mensajesIdioma.getMessage("login.iniciado", null, locale));
 			return "redirect:/";

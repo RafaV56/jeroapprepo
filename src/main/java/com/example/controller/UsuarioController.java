@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.models.entitys.Usuario;
 import com.example.models.validadores.UsuarioValidador;
+import com.example.recursos.Validadores;
 import com.example.service.usuario.IUsuarioService;
 
 
@@ -28,6 +31,7 @@ import com.example.service.usuario.IUsuarioService;
  * @author Rafael Velásquez
  *
  */
+@EnableGlobalMethodSecurity(securedEnabled = true)
 @Controller
 @SessionAttributes("usuario")
 public class UsuarioController {
@@ -46,7 +50,8 @@ public class UsuarioController {
 	 * @param model
 	 * @return
 	 */
-	 @GetMapping("/usuario")
+	@Secured({"ROLE_ADMIN","ROLE_USER"})
+	@GetMapping("/usuario")
 	public String indexUsuario(Model model) {
 		model.addAttribute("usuarios", usuarioService.buscarTodos());
 		return "usuario/usuarioIndex";
@@ -58,7 +63,7 @@ public class UsuarioController {
 	  */
 	 @GetMapping("/crearUsuario")
 	 public String crearUsuario(Model model) {
-		 Usuario usuario=new Usuario();	
+		Usuario usuario=new Usuario();	
 		 usuario.setDiaNacimiento(2);
 		 usuario.setAnnoNacimiento(1985);
 		 usuario.setMesNacimiento(10);
@@ -115,6 +120,7 @@ public class UsuarioController {
 		 sesion.setComplete();//terminamos la sesion
 		 return "redirect:usuario";
 	 }
+	
 	 
 	 
 	
@@ -125,6 +131,7 @@ public class UsuarioController {
 	  */
 	@GetMapping("/editarUsuario")
 	public String verUsuario(Model model) {
+		model.addAttribute("exito", new org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder().encode("admin"));
 		return "usuario/usuarioEditar";
 	}
 	

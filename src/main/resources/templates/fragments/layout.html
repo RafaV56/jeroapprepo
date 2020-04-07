@@ -65,16 +65,16 @@
 </div>
     <div th:replace="${template}"/>
     <footer class="text-center alert alert-dark">
-    <!-- Está el usaurio autorizado, si es admin mostrar admin, si no, el nombre del usuario -->
-    <p>Autorizado: <span sec:authorize="isAuthenticated()">
+    <!-- Está el usuaurio autorizado, si es admin mostrar admin, si no, el nombre del usuario -->
+    <p>Bienvenido: <span sec:authorize="isAuthenticated()">
     <span sec:authorize="hasRole('ADMIN')">
     Administrador
     </span>
-    <span sec:authorize="!hasRole('ADMIN')">
-    <span sec:authentication="name"></span>
+    <span sec:authorize="!hasRole('ADMIN')" sec:authentication="name">
     </span>
     <!-- Si no está autorizado motrar no -->
-    </span><span sec:authorize="!isAuthenticated()"> No</span> <span th:text="#{pie.creado}">Creado por Rafael Vel&aacute;squez</span> 22/3/2020 &copy; <a href="http://ejemplosdecodigo.ddns.net" target="_blank" class="text-info">ejemplosdecodigo.ddns.net</a></p>
+    </span><span sec:authorize="!isAuthenticated()"> <a class="text-info" th:href="@{/crearUsuario}" th:text="#{titulo.usuarioCrear}" target="">Crear Usuario</a> </span> <span th:text="#{pie.creado}">Creado por Rafael Vel&aacute;squez</span> 22/3/2020 &copy; <a href="http://ejemplosdecodigo.ddns.net" target="_blank" class="text-info">ejemplosdecodigo.ddns.net</a>
+    </p>
     </footer>
 
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

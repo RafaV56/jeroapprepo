@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import com.example.models.entitys.Usuario;
+import com.example.models.entitys.Jugador;
 
 import com.example.recursos.Validadores;
 
@@ -15,12 +15,12 @@ public class UsuarioValidador implements Validator {
 
 	@Override
 	public boolean supports(Class<?> clazz) {
-		return Usuario.class.isAssignableFrom(clazz);
+		return Jugador.class.isAssignableFrom(clazz);
 	}
 	 
 	@Override
 	public void validate(Object target, Errors errors) {
-		Usuario usuario = (Usuario) target;
+		Jugador usuario = (Jugador) target;
 
 		// ----- Validamos el nombre
 		// ----------------------------------------------------------------------

@@ -13,8 +13,9 @@
    <div th:if="${status==404}">
      <h6><span class="card-subtitle text-white" th:text="#{error.404}">No se encontró este recurso: </span> <span th:text="${path}" class="text-white"></span></h6>
    </div>
-    
-   
+   <div th:if="${status==500}">
+     <h6><span class="card-subtitle text-white" th:text="#{error.500}">No se encontró este recurso: </span> <span th:text="${path}" class="text-white"></span></h6>
+   </div>
     <p class="card-text"></p>
     <a th:href="@{/}" class="card-link text-white btn btn-dark" th:utext="#{titulo.menu.principal}">Ir a la página principal</a>
   </div>
@@ -34,7 +35,7 @@
 <!--     </tr> -->
 <!--     <tr> -->
 <!--         <td>Status</td> -->
-<!--         <td th:text="${status}"/> -->
+<!--         -->
 <!--     </tr> -->
 <!--     <tr> -->
 <!--         <td>Message</td> -->

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
@@ -12,12 +13,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.example.recursos.MensajeInicioSesion;
+import com.example.service.usuario.UsuarioServiceImp;
 
 /**
  * Clase para configurar la seguridad de la aplicación
  * @author ejemplosdecodigo.ddns.net
  *
  */
+@EnableGlobalMethodSecurity(securedEnabled = true)
 @Configuration
 public class ConfiguracionSeguridad extends WebSecurityConfigurerAdapter{
 
@@ -36,6 +39,12 @@ public class ConfiguracionSeguridad extends WebSecurityConfigurerAdapter{
 		successHandler(mensajeInicioSesion).
 		loginPage("/login").permitAll().//Todos pueden acceder al login
 		and().logout().permitAll();//Y todos puedes acceder al logout
+		
+		//Código para poder acceder a la consola de h2 usando spring security
+		http.authorizeRequests().antMatchers("/h2-console/**").permitAll();
+		http.csrf().disable();
+	    http.headers().frameOptions().disable();
+
 	}
 	/**
 	 * Registramos un passwordEconder por defecto
@@ -45,18 +54,25 @@ public class ConfiguracionSeguridad extends WebSecurityConfigurerAdapter{
 	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+	
+	@Autowired
+	private UsuarioServiceImp usuarioValidado;
+	
 	/**
 	 * Registra a los usuarios, creando dos usuarios, uno ADMIN y otro USER
 	 * @param registrarUsuario
 	 */
 	@Autowired
 	public void configuracionGlobal(AuthenticationManagerBuilder registrarUsuario) throws Exception{
+		
+		registrarUsuario.userDetailsService(usuarioValidado).passwordEncoder(passwordEncoder());
+		/*
 		//UserBuilder usuario=User.withDefaultPasswordEncoder();//como se usaba antes
 		PasswordEncoder encoder= passwordEncoder();
 		//Configuramos y encriptamos la contraseña con el encoder de BCrypt
 		UserBuilder usuario=User.builder().passwordEncoder(password->encoder.encode(password));
 		//Configurar el builder y añadimos los usuarios con sus roles
 		registrarUsuario.inMemoryAuthentication().withUser(usuario.username("admin").password("admin").roles("ADMIN","USER")).
-		withUser(usuario.username("usuario").password("usuario").roles("USER"));
+		withUser(usuario.username("usuario").password("usuario").roles("USER"));*/
 	}
 }

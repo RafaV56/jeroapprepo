@@ -20,10 +20,10 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.example.models.entitys.Usuario;
+import com.example.models.entitys.Jugador;
 import com.example.models.validadores.UsuarioValidador;
 import com.example.recursos.Validadores;
-import com.example.service.usuario.IUsuarioService;
+import com.example.service.jugador.IJugadorService;
 
 
 /**
@@ -31,7 +31,7 @@ import com.example.service.usuario.IUsuarioService;
  * @author Rafael Velásquez
  *
  */
-@EnableGlobalMethodSecurity(securedEnabled = true)
+
 @Controller
 @SessionAttributes("usuario")
 public class UsuarioController {
@@ -43,14 +43,14 @@ public class UsuarioController {
 	private final Logger log=org.slf4j.LoggerFactory.getLogger(getClass());
 	
 	@Autowired
-	private IUsuarioService usuarioService;
+	private IJugadorService usuarioService;
 	
 	/**
 	 * Controlador para la el index del usuario
 	 * @param model
 	 * @return
 	 */
-	@Secured({"ROLE_ADMIN","ROLE_USER"})
+	@Secured({"ROLE_ADMIN"})
 	@GetMapping("/usuario")
 	public String indexUsuario(Model model) {
 		model.addAttribute("usuarios", usuarioService.buscarTodos());
@@ -63,7 +63,7 @@ public class UsuarioController {
 	  */
 	 @GetMapping("/crearUsuario")
 	 public String crearUsuario(Model model) {
-		Usuario usuario=new Usuario();	
+		Jugador usuario=new Jugador();	
 		 usuario.setDiaNacimiento(2);
 		 usuario.setAnnoNacimiento(1985);
 		 usuario.setMesNacimiento(10);
@@ -96,7 +96,7 @@ public class UsuarioController {
 	  * @return
 	  */
 	 @PostMapping("/crearUsuario")
-	 public String crearUsaurioPost(@Valid Usuario usuario, BindingResult status, RedirectAttributes flash, Model model,SessionStatus sesion,Locale locale) {
+	 public String crearUsaurioPost(@Valid Jugador usuario, BindingResult status, RedirectAttributes flash, Model model,SessionStatus sesion,Locale locale) {
 		//Validamos primero la fecha de nacimiento
 		 try {
 			usuario.verFechaNacimiento();
@@ -131,7 +131,13 @@ public class UsuarioController {
 	  */
 	@GetMapping("/editarUsuario")
 	public String verUsuario(Model model) {
-		model.addAttribute("exito", new org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder().encode("admin"));
+		//encriptar una contra
+		//model.addAttribute("exito", new org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder().encode("usuario"));
+		
+		//Desenvcriptar una contraseña
+		//model.addAttribute("exito", new org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder().matches("admin", "$2a$10$JS7iOrTDGDBOZzdZ2/cHrOgQQkQRgO8AOwNQz2NpEa6FrOW3zUsDq"));
+
+		
 		return "usuario/usuarioEditar";
 	}
 	

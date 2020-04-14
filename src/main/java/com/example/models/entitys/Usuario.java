@@ -1,6 +1,7 @@
 package com.example.models.entitys;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -95,7 +96,25 @@ public class Usuario implements Serializable {
 	public void setRoles(List<Rol> roles) {
 		this.roles = roles;
 	}
+	
+	
 
+	@Override
+	public String toString() {
+		return "Usuario [id=" + id + ", alias=" + alias + ", nombreDeUsuario=" + nombreDeUsuario + ", apellidos="
+				+ apellidos + ", password=" + password + ", activo=" + activo + ", roles=" + roles + "]";
+	}
+
+	public void setRol(String nombreDelRol) {
+		Rol rol=new Rol();
+		rol.setNombre(nombreDelRol);
+		roles.add(rol);
+	}
+	
 	private static final long serialVersionUID = 1L;
+
+	public Usuario() {
+		roles=new ArrayList<Rol>();
+	}
 
 }

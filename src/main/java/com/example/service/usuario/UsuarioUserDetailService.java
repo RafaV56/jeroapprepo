@@ -14,11 +14,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.dao.usuario.IUsuarioDao;
+import com.example.models.entitys.Jugador;
 import com.example.models.entitys.Rol;
 import com.example.models.entitys.Usuario;
 
 @Service("usuarioServiceImp")
-public class UsuarioServiceImp implements UserDetailsService{
+public class UsuarioUserDetailService implements UserDetailsService{
 
 	@Autowired
 	private IUsuarioDao usuarioDao;
@@ -48,5 +49,6 @@ public class UsuarioServiceImp implements UserDetailsService{
 		
 		return new User(usuario.getAlias(), usuario.getPassword(), usuario.getActivo(), true, true, true, roles);
 	}
+	
 
 }

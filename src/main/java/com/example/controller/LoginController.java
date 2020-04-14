@@ -31,7 +31,7 @@ public class LoginController {
 			@RequestParam(value = "error",required = false)String error,
 			@RequestParam(value = "logout",required = false)String logout,
 			Model model,Principal principal,RedirectAttributes flash,Locale locale) { 
-		Authentication aut=SecurityContextHolder.getContext().getAuthentication();
+		//Authentication aut=SecurityContextHolder.getContext().getAuthentication();
 		
 		if (principal!=null) {
 			flash.addFlashAttribute("informacion",  mensajesIdioma.getMessage("login.iniciado", null, locale));

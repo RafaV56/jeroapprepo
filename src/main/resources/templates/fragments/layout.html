@@ -35,7 +35,7 @@
     <div class="collapse navbar-collapse justify-content-end" id="navbarIdioma">
     <ul class="navbar-nav">
      <li class="nav-item" sec:authorize="!isAuthenticated()">
-        <a th:href="@{/login}"  class="nav-item nav-link text-primary" th:text="#{login}">Entrar</a>  
+        <a th:href="@{/login}"  class="nav-item nav-link text-success" th:text="#{login}">Entrar</a>  
       </li>
        <li class="nav-item" sec:authorize="isAuthenticated()">
        <form th:action="@{/logout}" method="post">

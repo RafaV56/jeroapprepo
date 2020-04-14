@@ -13,7 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.example.recursos.MensajeInicioSesion;
-import com.example.service.usuario.UsuarioServiceImp;
+import com.example.service.usuario.UsuarioUserDetailService;
 
 /**
  * Clase para configurar la seguridad de la aplicación
@@ -56,7 +56,7 @@ public class ConfiguracionSeguridad extends WebSecurityConfigurerAdapter{
 	}
 	
 	@Autowired
-	private UsuarioServiceImp usuarioValidado;
+	private UsuarioUserDetailService usuarioValidado;
 	
 	/**
 	 * Registra a los usuarios, creando dos usuarios, uno ADMIN y otro USER

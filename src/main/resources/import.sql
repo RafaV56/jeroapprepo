@@ -6,9 +6,12 @@ INSERT INTO jugadores(id,nombre,peso,talla,dia,mes,anno,hora,minuto)VALUES (4,'p
 
 /*Usuarios iniciales*/
 INSERT INTO usuarios(id,alias,nombre, apellido,password,activo)VALUES (1,'admin','rafael','velásquez','$2a$10$JS7iOrTDGDBOZzdZ2/cHrOgQQkQRgO8AOwNQz2NpEa6FrOW3zUsDq',1);
+INSERT INTO usuarios(id,alias,nombre, apellido,password,activo)VALUES (3,'admin2','rafael','velásquez','$2a$10$JS7iOrTDGDBOZzdZ2/cHrOgQQkQRgO8AOwNQz2NpEa6FrOW3zUsDq',1);
 INSERT INTO usuarios(id,alias,nombre, apellido,password,activo)VALUES (2,'usuario','usuario','registrado','$2a$10$1u8p66xrrfOl.i7oyBoHnuwrEK8gyItxXwrZ0p5n7bMXGSUROxu3G',1);
 
 /*Insertamos roles*/
 INSERT INTO roles(usuario_id,nombre)VALUES (1,'ROLE_ADMIN');
+INSERT INTO roles(usuario_id,nombre)VALUES (3,'ROLE_ADMIN');
 INSERT INTO roles(usuario_id,nombre)VALUES (1,'ROLE_USER');
+INSERT INTO roles(usuario_id,nombre)VALUES (3,'ROLE_USER');
 INSERT INTO roles(usuario_id,nombre)VALUES (2,'ROLE_USER');

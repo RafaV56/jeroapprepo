@@ -58,7 +58,7 @@ public class Usuario implements Serializable {
 	}
 
 	public String getNombreDeUsuario() {
-		return nombreDeUsuario;
+		return nombreDeUsuario.toUpperCase();
 	}
 
 	public void setNombreDeUsuario(String nombreDeUsuario) {
@@ -66,7 +66,7 @@ public class Usuario implements Serializable {
 	}
 
 	public String getApellidos() {
-		return apellidos;
+		return apellidos.toUpperCase();
 	}
 
 	public void setApellidos(String apellidos) {

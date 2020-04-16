@@ -13,37 +13,37 @@ import com.example.models.entitys.Jugador;
 public class JugadorServiceImpl implements IJugadorService {
 
 	@Autowired
-	private IJugadorDao usuarioDao;
+	private IJugadorDao jugadorDao;
 	
 	@Override
 	@Transactional(readOnly = true)
 	public List<Jugador> buscarTodos() {
-		return (List<Jugador>)usuarioDao.findAll();
+		return (List<Jugador>)jugadorDao.findAll();
 	}
 
 	@Override
 	@Transactional//escritura
 	public void guardar(Jugador usuario) {
-		usuarioDao.save(usuario);
+		jugadorDao.save(usuario);
 
 	}
 
 	@Override
 	@Transactional
 	public Jugador buscarUno(Long id) {
-		return usuarioDao.findById(id).orElseGet(null);
+		return jugadorDao.findById(id).orElseGet(null);
 	}
 
 	@Override
 	@Transactional
 	public void editar(Jugador usuario) {
-		usuarioDao.save(usuario);
+		jugadorDao.save(usuario);
 	}
 
 	@Override
 	@Transactional
 	public void borrar(Long id) {
-		usuarioDao.deleteById(id);
+		jugadorDao.deleteById(id);
 
 	}
 

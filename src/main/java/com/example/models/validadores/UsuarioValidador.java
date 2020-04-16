@@ -104,6 +104,17 @@ public class UsuarioValidador implements Validator {
 		}
 		
 		// -----------------------------------------------------------------------------------------------------
+		
+		// ----- Validamos si está activo
+		// ----------------------------------------------------------------------
+		
+		// Validamos que esté activo
+		if (!usuario.getActivo()) {
+			errors.rejectValue("activo", "null.usuario.activo");
+			usuario.setPassword("");
+		}
+		
+		// -----------------------------------------------------------------------------------------------------
 
 
 	}

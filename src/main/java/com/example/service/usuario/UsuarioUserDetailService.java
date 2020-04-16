@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.dao.usuario.IUsuarioDao;
-import com.example.models.entitys.Jugador;
 import com.example.models.entitys.Rol;
 import com.example.models.entitys.Usuario;
 

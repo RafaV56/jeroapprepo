@@ -19,9 +19,10 @@ public class UsuarioServiceImpl implements IUsuarioService {
 	IUsuarioDao usuarioDao;
 	
 	@Override
+	@Transactional(readOnly = true )
 	public List<Usuario> buscarTodos() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return (List<Usuario>) usuarioDao.findAll();
 	}
 
 	@Autowired
@@ -32,13 +33,8 @@ public class UsuarioServiceImpl implements IUsuarioService {
 	public Usuario guardar(Usuario usuario) {	
 		//tomamos el usuario y codificamos su con contraseña
 		usuario.setPassword(encoder.encode(usuario.getPassword()));
-		//Insertamis el rol user
-		List<Rol> roles=new ArrayList<Rol>();
-		Rol rolUser=new Rol();
-		rolUser.setNombre("ROLE_USER");
-		
-		roles.add(rolUser);
-		usuario.setRoles(roles);	
+		//Insertamos el rol user
+		usuario.setRol("ROLE_USER");	
 		return usuarioDao.save(usuario);
 
 	}

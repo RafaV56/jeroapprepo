@@ -26,7 +26,12 @@
          <div sec:authorize="hasRole('ADMIN')">
           <a class="dropdown-item"  th:href="@{/crearUsuario}" th:text="#{titulo.usuarioCrear}" target="">Crear Usuario</a>
         </div>
+         <div sec:authorize="hasRole('ADMIN')">
           <a class="dropdown-item" th:href="@{/usuario}" th:text="#{titulo.usuarioIndex}" target="">Listar Usuarios</a>
+        </div>
+        <div sec:authorize="hasRole('USER')">
+          <a class="dropdown-item" th:href="@{/editarUsuario}" th:text="#{titulo.usuarioEditar}" target="">Editar Usuario</a>
+        </div>
         </div>
       </li>
       <li class="nav-item">

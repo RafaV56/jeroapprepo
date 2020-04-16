@@ -24,6 +24,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.models.entitys.Usuario;
 import com.example.models.validadores.UsuarioValidador;
 import com.example.service.jugador.IJugadorService;
+import com.example.service.jugador.JugadorServiceImpl;
+import com.example.service.usuario.IUsuarioService;
 import com.example.service.usuario.RolServiceImpl;
 import com.example.service.usuario.UsuarioServiceImpl;
 
@@ -44,7 +46,10 @@ public class UsuarioController {
 	private final Logger log = org.slf4j.LoggerFactory.getLogger(getClass());
 
 	@Autowired
-	private IJugadorService usuarioService;
+	private JugadorServiceImpl jugadorService;
+	
+	@Autowired
+	private UsuarioServiceImpl usuarioService;
 
 	/**
 	 * Controlador para la el index del usuario
@@ -55,6 +60,7 @@ public class UsuarioController {
 	@Secured({ "ROLE_ADMIN" })
 	@GetMapping("/usuario")
 	public String indexUsuario(Model model,HttpServletRequest request) {
+		model.addAttribute("jugadores", jugadorService.buscarTodos());
 		model.addAttribute("usuarios", usuarioService.buscarTodos());
 		return "usuario/usuarioIndex";
 	}
@@ -67,6 +73,7 @@ public class UsuarioController {
 	 */
 	@GetMapping("/crearUsuario")
 	public String crearUsuario(Model model,Principal principal,RedirectAttributes flash,Locale locale,HttpServletRequest request) {
+		//si se inicio sesión se verifica que el usuario ADMIN pueda crear usuario, de resto solo usuarios anonimos
 		if (principal!=null) {
 			if(!new SecurityContextHolderAwareRequestWrapper(request,"ROLE_").isUserInRole("ADMIN")) {
 				flash.addFlashAttribute("cuidado",  mensajesIdioma.getMessage("error.crearusuario", null, locale));
@@ -79,7 +86,6 @@ public class UsuarioController {
 		usuario.setNombreDeUsuario("nombre");
 		usuario.setApellidos("apellido");
 		usuario.setPassword("password");
-		usuario.setRoles(null);
 		model.addAttribute("usuario", usuario);
 		return "usuario/usuarioCrear";
 	}

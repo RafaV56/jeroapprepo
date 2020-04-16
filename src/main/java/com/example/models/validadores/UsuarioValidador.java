@@ -18,11 +18,11 @@ public class UsuarioValidador implements Validator {
 	@Override
 	public void validate(Object target, Errors errors) {
 		Usuario usuario = (Usuario) target;
+		if (usuario==null) {
+			throw new RuntimeException("Usuario null"); //revisar y cambiar con idiomas
+		}
 
-		// ----- Validamos el nombre de usuario
-		// ----------------------------------------------------------------------
-
-		// Validamos que el nombre de usuario no sea nulo
+		// Validamos que el nombre de usuario no sea nulo------------------------------------
 		if (usuario.getNombreDeUsuario() == null) {
 			errors.rejectValue("nombreDeUsuario", "null.usuario.nombre");
 			usuario.setNombreDeUsuario("");
@@ -45,12 +45,12 @@ public class UsuarioValidador implements Validator {
 		// Validamos que el nombre de usuario no sea nulo
 		if (usuario.getAlias() == null) {
 			errors.rejectValue("alias", "null.usuario.alias");
-			usuario.setNombreDeUsuario("");
+			usuario.setAlias("");
 		}
 		// Quitamos los espacios en blanco
 		usuario.setAlias(Validadores.revisarEspaciosEnBlancoAlPrincipioYAlfinal(usuario.getAlias().trim()));
-		// Luego revisamos que tenga el tamaño de 3 - 60 caracteres
-		if (usuario.getAlias().length() < 3 || usuario.getAlias().length() > 60) {
+		// Luego revisamos que tenga el tamaño de 4 - 60 caracteres
+		if (usuario.getAlias().length() < 4 || usuario.getAlias().length() > 60) {
 			// la info esta en el messages.properties que se crea y no hay que configurarlo
 			errors.rejectValue("alias", "size.usuario.alias");
 		}
@@ -60,10 +60,50 @@ public class UsuarioValidador implements Validator {
 		}
 
 		// -----------------------------------------------------------------------------------------------------
-
-		// ----- Validamos la talla y el peso en la propia clase con las anotaciones
-
-		// ----- Validamos la fecha de nacimiento,
+	
+		// ----- Validamos el apellido
+		// ----------------------------------------------------------------------
+		
+		// Validamos que el apellido de usuario no sea nulo
+		if (usuario.getApellidos() == null) {
+			errors.rejectValue("apellidos", "null.usuario.apellidos");
+			usuario.setApellidos("");
+		}
+		// Quitamos los espacios en blanco
+		usuario.setApellidos(Validadores.revisarEspaciosEnBlancoAlPrincipioYAlfinal(usuario.getApellidos().trim()));
+		// Luego revisamos que tenga el tamaño de 3 - 60 caracteres
+		if (usuario.getApellidos().length() < 4 || usuario.getApellidos().length() > 60) {
+			// la info esta en el messages.properties que se crea y no hay que configurarlo
+			errors.rejectValue("apellidos", "size.usuario.apellidos");
+		}
+		if (Validadores.revisarSoloLetrasDelEspannol(usuario.getApellidos())) {
+			// Informamos que no se puede tener números ni caracrteres especiales
+			errors.rejectValue("apellidos", "letras.usuario.apellidos");
+		}
+		
+		// -----------------------------------------------------------------------------------------------------
+		
+		
+		// ----- Validamos la contraseña
+		// ----------------------------------------------------------------------
+		
+		// Validamos que la contraseña de usuario no sea nulo
+		if (usuario.getPassword() == null) {
+			errors.rejectValue("password", "null.usuario.password");
+			usuario.setPassword("");
+		}
+		// Quitamos los espacios en blanco
+		usuario.setPassword(Validadores.revisarEspaciosEnBlancoAlPrincipioYAlfinal(usuario.getPassword().trim()));
+		// Luego revisamos que tenga el tamaño de 6 - 60 caracteres
+		if (usuario.getPassword().length() < 7 || usuario.getPassword().length() > 60) {
+			errors.rejectValue("password", "size.usuario.password");
+		}
+		if (Validadores.revisarSoloLetrasDelEspannol(usuario.getPassword())) {
+			// Informamos que no se puede tener números ni caracrteres especiales
+			errors.rejectValue("password", "letras.usuario.password");
+		}
+		
+		// -----------------------------------------------------------------------------------------------------
 
 
 	}

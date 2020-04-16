@@ -88,6 +88,33 @@ public class Validadores {
 	}
 	
 	
+	/**
+	 * Revisa que solo tenga dígitos y letras nada de caracteres especiales
+	 * @param cadena
+	 * @return true si tiene cualquier caracter especia como [+,´,¡]
+	 */
+	public static boolean revisarSoloDigitosYLetras(String cadena) {
+		
+		boolean bandera = false;
+		char[] array = cadena.toCharArray();
+		
+		for (char c : array) {
+			
+			//Si no es letra ni dígito
+			if (Character.isDigit(c) ) {
+				continue;
+			}else if(Character.isLetter(c)){
+				continue;
+			}else {
+				bandera = true;
+				break;
+			}
+		}
+	
+		return bandera;
+	}
+	
+	
 	
 	
 	/**

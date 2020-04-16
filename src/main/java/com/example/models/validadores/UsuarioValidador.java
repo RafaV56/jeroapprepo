@@ -72,7 +72,7 @@ public class UsuarioValidador implements Validator {
 		// Quitamos los espacios en blanco
 		usuario.setApellidos(Validadores.revisarEspaciosEnBlancoAlPrincipioYAlfinal(usuario.getApellidos().trim()));
 		// Luego revisamos que tenga el tamaño de 3 - 60 caracteres
-		if (usuario.getApellidos().length() < 4 || usuario.getApellidos().length() > 60) {
+		if (usuario.getApellidos().length() < 3 || usuario.getApellidos().length() > 60) {
 			// la info esta en el messages.properties que se crea y no hay que configurarlo
 			errors.rejectValue("apellidos", "size.usuario.apellidos");
 		}
@@ -95,11 +95,11 @@ public class UsuarioValidador implements Validator {
 		// Quitamos los espacios en blanco
 		usuario.setPassword(Validadores.revisarEspaciosEnBlancoAlPrincipioYAlfinal(usuario.getPassword().trim()));
 		// Luego revisamos que tenga el tamaño de 6 - 60 caracteres
-		if (usuario.getPassword().length() < 7 || usuario.getPassword().length() > 60) {
+		if (usuario.getPassword().length() < 6 || usuario.getPassword().length() > 60) {
 			errors.rejectValue("password", "size.usuario.password");
 		}
-		if (Validadores.revisarSoloLetrasDelEspannol(usuario.getPassword())) {
-			// Informamos que no se puede tener números ni caracrteres especiales
+		if (Validadores.revisarSoloDigitosYLetras(usuario.getPassword())) {
+			// Informamos que no se puede tener caracteres especiales
 			errors.rejectValue("password", "letras.usuario.password");
 		}
 		

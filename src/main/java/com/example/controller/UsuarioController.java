@@ -1,8 +1,8 @@
 package com.example.controller;
-import java.util.ArrayList;
-import java.util.List;
+import java.security.Principal;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -10,8 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.context.MessageSource;
 import org.springframework.security.access.annotation.Secured;
-
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,9 +21,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.example.models.entitys.Rol;
 import com.example.models.entitys.Usuario;
-import com.example.models.validadores.JugadorValidador;
 import com.example.models.validadores.UsuarioValidador;
 import com.example.service.jugador.IJugadorService;
 import com.example.service.usuario.RolServiceImpl;
@@ -57,7 +54,7 @@ public class UsuarioController {
 	 */
 	@Secured({ "ROLE_ADMIN" })
 	@GetMapping("/usuario")
-	public String indexUsuario(Model model) {
+	public String indexUsuario(Model model,HttpServletRequest request) {
 		model.addAttribute("usuarios", usuarioService.buscarTodos());
 		return "usuario/usuarioIndex";
 	}
@@ -69,7 +66,13 @@ public class UsuarioController {
 	 * @return
 	 */
 	@GetMapping("/crearUsuario")
-	public String crearUsuario(Model model) {
+	public String crearUsuario(Model model,Principal principal,RedirectAttributes flash,Locale locale,HttpServletRequest request) {
+		if (principal!=null) {
+			if(!new SecurityContextHolderAwareRequestWrapper(request,"ROLE_").isUserInRole("ADMIN")) {
+				flash.addFlashAttribute("cuidado",  mensajesIdioma.getMessage("error.crearusuario", null, locale));
+				return "redirect:/";
+			}	
+		}
 		Usuario usuario = new Usuario();
 		usuario.setActivo(true);
 		usuario.setAlias("alias");

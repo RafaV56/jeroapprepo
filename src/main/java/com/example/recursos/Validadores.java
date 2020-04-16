@@ -2,6 +2,14 @@ package com.example.recursos;
 
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
+import java.util.Collection;
+
+import org.slf4j.Logger;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 
 /**
@@ -11,6 +19,33 @@ import java.time.LocalDateTime;
  */
 public class Validadores {
 	
+	/**
+	 * Obj para poder hacer entradas en el log
+	 */
+	private final Logger log=org.slf4j.LoggerFactory.getLogger(getClass());
+	
+	 /**
+	  * Método para validar si el rol del usuario es uno en concreto
+	  * @param rol nombre del rol
+	  * @return true si contiene el rol false en caso contrario
+	  */
+	 public static boolean rol(String rol) {
+		 boolean bandera=false;
+		 
+		 SecurityContext context=SecurityContextHolder.getContext();
+		 
+		 if (context == null) return bandera;
+		 
+		 Authentication aut=context.getAuthentication();
+		 
+		 if (aut == null) return bandera;
+		 
+		 Collection<? extends GrantedAuthority> autorizados=aut.getAuthorities();
+		
+		 bandera=autorizados.contains(new SimpleGrantedAuthority(rol));
+		 
+		 return bandera;
+	 }
 	
 	/**
 	 * Revisa que solo tenga letras, nada de números ni caracteres especiales, acepta la ñ los acentos á é í ó ú
@@ -66,7 +101,7 @@ public class Validadores {
 		int largo=cadena.length()-1;
 		//Revisamos los espacios finales
 		for (int i =largo; i >= 0; i--) {
-			//si todavia no hay bander
+			//si todavia no hay bandera
 			if (!bandera && cadena.charAt(i)==' ') {
 				continue;
 			}else {

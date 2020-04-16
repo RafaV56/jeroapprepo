@@ -1,49 +1,63 @@
 package com.example.service.usuario;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.dao.usuario.IUsuarioDao;
+import com.example.models.entitys.Rol;
 import com.example.models.entitys.Usuario;
 
 @Service
 public class UsuarioServiceImpl implements IUsuarioService {
 
 	@Autowired
-	private IUsuarioDao usuarioDao;
+	IUsuarioDao usuarioDao;
 	
 	@Override
-	@Transactional(readOnly = true)
 	public List<Usuario> buscarTodos() {
-		return (List<Usuario>)usuarioDao.findAll();
+		// TODO Auto-generated method stub
+		return null;
 	}
 
+	@Autowired
+	private BCryptPasswordEncoder encoder;
+	
 	@Override
 	@Transactional//escritura
-	public void guardar(Usuario usuario) {
-		usuarioDao.save(usuario);
+	public Usuario guardar(Usuario usuario) {	
+		//tomamos el usuario y codificamos su con contraseña
+		usuario.setPassword(encoder.encode(usuario.getPassword()));
+		//Insertamis el rol user
+		List<Rol> roles=new ArrayList<Rol>();
+		Rol rolUser=new Rol();
+		rolUser.setNombre("ROLE_USER");
+		
+		roles.add(rolUser);
+		usuario.setRoles(roles);	
+		return usuarioDao.save(usuario);
 
 	}
 
 	@Override
-	@Transactional
 	public Usuario buscarUno(Long id) {
-		return usuarioDao.findById(id).orElseGet(null);
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
-	@Transactional
 	public void editar(Usuario usuario) {
-		usuarioDao.save(usuario);
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
-	@Transactional
 	public void borrar(Long id) {
-		usuarioDao.deleteById(id);
+		// TODO Auto-generated method stub
 
 	}
 

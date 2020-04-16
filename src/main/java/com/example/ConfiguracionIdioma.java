@@ -16,7 +16,7 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
  *
  */
 @Configuration
-public class ConfiguracionGeneral  implements WebMvcConfigurer{
+public class ConfiguracionIdioma  implements WebMvcConfigurer{
 	
 	/**
 	 * Bean para retomar el la configuración que tiene de idioma la aplicación

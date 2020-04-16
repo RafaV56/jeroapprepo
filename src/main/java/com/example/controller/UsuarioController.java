@@ -15,7 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
@@ -40,6 +40,7 @@ import com.example.service.usuario.UsuarioServiceImpl;
 @SessionAttributes("usuario")
 public class UsuarioController {
 
+
 	/**
 	 * Obj para poder hacer entradas en el log
 	 */
@@ -50,6 +51,21 @@ public class UsuarioController {
 	
 	@Autowired
 	private UsuarioServiceImpl usuarioService;
+	
+	/**
+	 * Borra un usuario  de la aplicación es necesario el id y ser Administrador
+	 * @param id
+	 * @param flash
+	 * @param locale
+	 * @return
+	 */
+	@Secured({ "ROLE_ADMIN" })
+	@GetMapping("borrar/{id}")
+	public String borrar(@PathVariable(name = "id", required = true) Long id, RedirectAttributes flash,Locale locale) {
+		usuarioService.borrar(id);
+		flash.addFlashAttribute("exito",  mensajesIdioma.getMessage("text.usuario.borrado", null, locale).concat(" <strong>ID  ' "+id+" ' </strong>"));
+		return "redirect:/usuario";
+	}
 
 	/**
 	 * Controlador para la el index del usuario
@@ -62,7 +78,7 @@ public class UsuarioController {
 	public String indexUsuario(Model model,HttpServletRequest request) {
 		model.addAttribute("jugadores", jugadorService.buscarTodos());
 		model.addAttribute("usuarios", usuarioService.buscarTodos());
-		return "usuario/usuarioIndex";
+		return "usuario/usuariosAdmin";
 	}
 
 	/**
@@ -76,7 +92,7 @@ public class UsuarioController {
 		//si se inicio sesión se verifica que el usuario ADMIN pueda crear usuario, de resto solo usuarios anonimos
 		if (principal!=null) {
 			if(!new SecurityContextHolderAwareRequestWrapper(request,"ROLE_").isUserInRole("ADMIN")) {
-				flash.addFlashAttribute("cuidado",  mensajesIdioma.getMessage("error.crearusuario", null, locale));
+				flash.addFlashAttribute("cuidado",mensajesIdioma.getMessage("error.crearusuario", null, locale));
 				return "redirect:/";
 			}	
 		}
@@ -155,6 +171,7 @@ public class UsuarioController {
 //		 sesion.setComplete();//terminamos la sesion
 //		 return "redirect:usuario";
 //	 }
+	
 
 	/**
 	 * Controlador para editar el usuario

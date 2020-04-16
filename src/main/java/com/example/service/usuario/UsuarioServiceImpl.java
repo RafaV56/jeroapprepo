@@ -52,8 +52,9 @@ public class UsuarioServiceImpl implements IUsuarioService {
 	}
 
 	@Override
+	@Transactional//escritura
 	public void borrar(Long id) {
-		// TODO Auto-generated method stub
+		usuarioDao.deleteById(id);
 
 	}
 

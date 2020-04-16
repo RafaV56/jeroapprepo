@@ -17,6 +17,7 @@
 							<th th:text="#{text.usuario.apellidos}">Apellidos</th>
 							<th th:text="#{text.usuario.activo}">Activo</th>
 							<th th:text="#{text.usuario.roles}">Roles</th>
+							<th th:text="#{text.usuario.borrar}">Borrar</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -28,6 +29,10 @@
 							<td th:if="${usuario.activo}==true" th:text="#{text.usuario.activo.si}"></td>
 							<td th:if="${usuario.activo}==false" th:text="#{text.usuario.activo.no}"></td>
 							<td th:text="${usuario.roles}"></td>
+							<td><a th:href="@{borrar/}+${usuario.id}" 
+							class="btn btn-light btn-sm text-danger"
+							th:text="#{text.usuario.borrar}"
+							onclick="return confirm('OK');"></a></td>
 						</tr>
 
 					</tbody>

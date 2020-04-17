@@ -4,8 +4,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+import com.example.exceptions.UsuarioNull;
 import com.example.models.entitys.Usuario;
 import com.example.recursos.Validadores;
+import com.example.service.usuario.UsuarioServiceImpl;
 
 @Component
 public class UsuarioValidador implements Validator {
@@ -19,7 +21,7 @@ public class UsuarioValidador implements Validator {
 	public void validate(Object target, Errors errors) {
 		Usuario usuario = (Usuario) target;
 		if (usuario==null) {
-			throw new RuntimeException("Usuario null"); //revisar y cambiar con idiomas
+			throw new UsuarioNull("null.usuario");
 		}
 
 		// Validamos que el nombre de usuario no sea nulo------------------------------------

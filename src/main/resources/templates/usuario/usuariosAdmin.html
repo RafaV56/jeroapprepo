@@ -23,7 +23,9 @@
 					<tbody>
 						<tr th:each="usuario : ${usuarios}">
 							<td th:text="${usuario.id}"></td>
-							<td th:text="${usuario.alias}"></td>
+							<td><a th:href="@{/editarUsuario}+'/'+${usuario.id}" 
+							class="btn btn-info btn-sm text-white"
+							th:text="${usuario.alias}"></a></td>
 							<td th:text="${usuario.nombreDeUsuario}"></td>
 							<td th:text="${usuario.apellidos}"></td>
 							<td th:if="${usuario.activo}==true" th:text="#{text.usuario.activo.si}"></td>

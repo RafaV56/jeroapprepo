@@ -23,9 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.models.entitys.Usuario;
 import com.example.models.validadores.UsuarioValidador;
-import com.example.service.jugador.IJugadorService;
 import com.example.service.jugador.JugadorServiceImpl;
-import com.example.service.usuario.IUsuarioService;
 import com.example.service.usuario.RolServiceImpl;
 import com.example.service.usuario.UsuarioServiceImpl;
 
@@ -64,6 +62,15 @@ public class UsuarioController {
 	public String borrar(@PathVariable(name = "id", required = true) Long id, RedirectAttributes flash,Locale locale) {
 		usuarioService.borrar(id);
 		flash.addFlashAttribute("exito",  mensajesIdioma.getMessage("text.usuario.borrado", null, locale).concat(" <strong>ID  ' "+id+" ' </strong>"));
+		return "redirect:/usuario";
+	}
+	
+	@Secured({ "ROLE_ADMIN" })
+	@GetMapping("editarUsuario/{id}")
+	public String editarUsuario(@PathVariable(name = "id", required = true) Long id, RedirectAttributes flash,Locale locale) {
+		Usuario usuario = usuarioService.buscarUno(id);
+		System.out.println(usuario);
+		//flash.addFlashAttribute("exito",  mensajesIdioma.getMessage("text.usuario.borrado", null, locale).concat(" <strong>ID  ' "+id+" ' </strong>"));
 		return "redirect:/usuario";
 	}
 
@@ -124,12 +131,12 @@ public class UsuarioController {
 	@PostMapping("/crearUsuario")
 	public String crearUsaurioPost(@Valid Usuario usuario, BindingResult status, RedirectAttributes flash, Model model,
 			SessionStatus sesion, Locale locale) {
-		
 		 //Validamos el restos de campos
 		 usuarioValidador.validate(usuario,status);
 		 if (status.hasErrors()) {
 			 	model.addAttribute("cuidado", mensajesIdioma.getMessage("error.fomulario", null, locale));
-				return "usuario/usuarioCrear";			}
+				return "usuario/usuarioCrear";
+		}
 		
 		usuarioServiceImpl.guardar(usuario);
 		flash.addFlashAttribute("exito",mensajesIdioma.getMessage("usuario.creado", null, locale)+ "<strong> ' ".concat(usuario.getNombreDeUsuario()).concat(" '</strong>"));

@@ -14,13 +14,19 @@
      <h6><span class="card-subtitle text-white" th:text="#{error.404}">No se encontró este recurso: </span> <span th:text="${path}" class="text-white"></span></h6>
    </div>
    <div th:if="${status==500}">
-     <h6><span class="card-subtitle text-white" th:text="#{error.500}">No se encontró este recurso: </span> <span th:text="${path}" class="text-white"></span></h6>
+     <h6><span class="card-subtitle text-white" th:text="#{error.500}">Error interno: </span> <span th:text="${path}" class="text-white"></span></h6>
+   </div>
+   <div th:if="${status==409}">
+     <h6><span class="card-subtitle text-white" th:text="#{error.409}">Conflicto en la aplicación: </span> <span th:text="${path}" class="text-white"></span></h6>
+   </div>
+   <div th:if="${status==401}">
+     <h6><span class="card-subtitle text-white" th:text="#{error.401}">No tiene autorización para el recurso </span> <span th:text="${path}" class="text-white"></span></h6>
    </div>
     <p class="card-text"></p>
     <a th:href="@{/}" class="card-link text-white btn btn-dark" th:utext="#{titulo.menu.principal}">Ir a la página principal</a>
   </div>
   </div>
-<!-- <table class="table table-hover table-dark text-white"> -->
+<!-- <table class="table table-hover text-white"> -->
 <!--     <tr> -->
 <!--         <td>Date</td> -->
 <!--         <td th:text="${timestamp}"/> -->
@@ -35,7 +41,7 @@
 <!--     </tr> -->
 <!--     <tr> -->
 <!--         <td>Status</td> -->
-<!--         -->
+       
 <!--     </tr> -->
 <!--     <tr> -->
 <!--         <td>Message</td> -->

@@ -1,6 +1,5 @@
 package com.example.service.usuario;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.dao.usuario.IUsuarioDao;
-import com.example.models.entitys.Rol;
 import com.example.models.entitys.Usuario;
 
 @Service
@@ -40,9 +38,9 @@ public class UsuarioServiceImpl implements IUsuarioService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Usuario buscarUno(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return usuarioDao.getOne(id);
 	}
 
 	@Override
